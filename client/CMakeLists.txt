@@ -2,6 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(client)
 
 INCLUDE_DIRECTORIES(
+    ../lib/SFML/include
     ../common/include
     include
 )

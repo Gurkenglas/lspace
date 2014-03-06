@@ -6,6 +6,6 @@ INCLUDE_DIRECTORIES(
 )
 
 ADD_LIBRARY(
-    common
+    common STATIC
     src/example.cpp
 )
