@@ -2,41 +2,75 @@
 
 int main(int argc, const char **argv)
 {
-    Window window;
+	srand(time(NULL));
 
-	sf::RenderTexture test;
-	sf::Vector2u dimension = window.getSize();
-	test.create(dimension.x, dimension.y);
-	//sf::Uint8 pixel[4] = {255, 255, 255, 255};
-	//test.update(pixel, 1, 1, 100, 100);
-	//test.setSmooth(true); //Not sure
-
+	Window             window;
+	sf::RenderTexture  star_layers[3];
+	sf::Vector2u       dimension = window.getSize();
 	sf::RectangleShape dot(sf::Vector2f(1, 1));
-	dot.setFillColor(sf::Color(255, 255, 255, 255));
-	dot.setPosition(100, 100);
-	test.draw(dot);
-	dot.setPosition(200, 200);
-	test.draw(dot);
-	test.display();
 
-	sf::Sprite sprite(test.getTexture());
+	/* Prepare star textures */
+	for (int layer = 0; layer < 3; layer++) {
+		star_layers[layer].create(dimension.x, dimension.y);
 
-	window.clear();
-	window.draw(sprite);
-	window.display();
+		for (int i = 0; i < 500; i++) {
+			int mod_color = -1 * (rand() % 100);
+			dot.setFillColor(sf::Color(255 + mod_color, 255 + mod_color, 255, 100 + (rand() % 155)));
+			dot.setPosition(rand() % dimension.x, rand() % dimension.y);
+			star_layers[layer].draw(dot);
+		}
+		
+		star_layers[layer].display();
+	}
 
+	/* Prepare star sprites */
+	sf::Sprite star_sprites[3] = {
+		sf::Sprite(star_layers[0].getTexture()),
+		sf::Sprite(star_layers[1].getTexture()),
+		sf::Sprite(star_layers[2].getTexture())
+	};
+
+	/* Main loop */
     sf::Event event;
-    while (window.waitEvent(event))
-    {
-        switch (event.type)
+	sf::Clock clock;
+	int step = 0;
+    while (window.isOpen()) {
+
+		/* Event handling */
+		window.pollEvent(event);
+		switch (event.type)
         {
             case sf::Event::Closed:
                 window.close();
                 break;
             case sf::Event::KeyPressed:
-                window.close();
+				if (event.key.code == sf::Keyboard::Escape) {
+					window.close();
+				}
                 break;
         }
+
+		/* Star parralax animation */
+		sf::Time elapsed = clock.getElapsedTime();
+		if (elapsed.asMilliseconds() >= 10) {
+			step++;
+			clock.restart();
+			if (step > 0) star_sprites[0].setPosition(star_sprites[0].getPosition().x - 1, star_sprites[0].getPosition().y);
+			if (step > 1) star_sprites[1].setPosition(star_sprites[1].getPosition().x - 1, star_sprites[1].getPosition().y);
+			if (step > 2) star_sprites[2].setPosition(star_sprites[2].getPosition().x - 1, star_sprites[2].getPosition().y);
+			if (step > 3) step = 0;
+		}
+
+		/* Draw frame */
+		window.clear();
+		window.draw(star_sprites[0]);
+		window.draw(star_sprites[1]);
+		window.draw(star_sprites[2]);
+		window.display();
+
+		/* Avoid burning too much CPU */
+		sf::sleep(sf::milliseconds(20));
+
     }
 
     return 0;

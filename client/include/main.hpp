@@ -3,6 +3,8 @@
 
 #include "general.hpp"
 #include "window.hpp"
+#include "SFML/System/Time.hpp"
+#include "SFML/System/Sleep.hpp"
 #include "SFML/Window/Event.hpp"
 #include "SFML/Graphics/RenderTexture.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
