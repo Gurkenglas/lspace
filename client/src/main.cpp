@@ -50,7 +50,7 @@ int main(int argc, const char **argv)
                 break;
         }
 
-		/* Star parralax animation */
+		/* Star parallax animation */
 		sf::Time elapsed = clock.getElapsedTime();
 		if (elapsed.asMilliseconds() >= 10) {
 			step++;
