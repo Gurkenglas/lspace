@@ -7,5 +7,5 @@ INCLUDE_DIRECTORIES(
 
 ADD_LIBRARY(
     common STATIC
-    src/example.cpp
+    src/example.c
 )

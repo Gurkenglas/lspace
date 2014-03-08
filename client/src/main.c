@@ -1,7 +1,7 @@
-#include "main.hpp"
+#include "main.h"
 
 int main(int argc, const char **argv)
 {
-    printf("Demo server\n");
+    printf("Hello world!"); 
     return 0;
 }
