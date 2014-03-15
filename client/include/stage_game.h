@@ -15,8 +15,7 @@ void stage_game_init(struct stage_game *this);
 void stage_game_render(struct stage_game *this);
 void stage_game_update(struct stage_game *this);
 
-struct stage_vtable g_stage_game_vtable =
-{
+struct stage_vtable g_stage_game_vtable = {
     .handle_event    = (void (*)(struct stage *this))&stage_game_handle_event,
     .handle_keyboard = (void (*)(struct stage *this))&stage_game_handle_keyboard,
     .handle_mouse    = (void (*)(struct stage *this))&stage_game_handle_mouse,
