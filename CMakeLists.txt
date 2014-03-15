@@ -5,6 +5,7 @@ ADD_SUBDIRECTORY(lib/SDL)
 
 ADD_DEFINITIONS(
     -std=c99
+    -pedantic
 )
 
 ADD_SUBDIRECTORY(common)
