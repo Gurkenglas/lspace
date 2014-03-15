@@ -10,10 +10,12 @@ INCLUDE_DIRECTORIES(
 ADD_EXECUTABLE(
     client
     src/main.c
+    src/stage.c
+    src/stage_game.c
 )
 
 TARGET_LINK_LIBRARIES(
     client
     common
-    SDL2
+    SDL2-static
 )
