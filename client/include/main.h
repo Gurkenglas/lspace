@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "stage.h"
 #include "stage_game.h"
+#include "SDL.h"
 
 int main(int argc, const char **argv);
 
