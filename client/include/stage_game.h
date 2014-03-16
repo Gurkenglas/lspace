@@ -2,14 +2,13 @@
 #define STAGE_GAME_H
 
 #include "stage.h"
+#include "SDL.h"
 
 struct stage_game {
     struct stage stage;
 };
 
-void stage_game_handle_event(const struct stage_game *this);
-void stage_game_handle_keyboard(const struct stage_game *this);
-void stage_game_handle_mouse(const struct stage_game *this);
+void stage_game_handle_event(const struct stage_game *this, SDL_Event *event);
 void stage_game_handle_network(const struct stage_game *this);
 void stage_game_init(struct stage_game *this);
 void stage_game_render(const struct stage_game *this);

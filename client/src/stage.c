@@ -1,21 +1,11 @@
 #include "stage.h"
 
-void handle_event(const struct stage *this)
+void stage_handle_event(const struct stage *this, SDL_Event *event)
 {
-    this->vtable->handle_event(this);
+    this->vtable->handle_event(this, event);
 }
 
-void handle_keyboard(const struct stage *this)
-{
-    this->vtable->handle_keyboard(this);
-}
-
-void handle_mouse(const struct stage *this)
-{
-    this->vtable->handle_mouse(this);
-}
-
-void handle_network(const struct stage *this)
+void stage_handle_network(const struct stage *this)
 {
     this->vtable->handle_network(this);
 }
@@ -28,4 +18,3 @@ void stage_update(const struct stage *this)
 {
     this->vtable->update(this);
 }
-
