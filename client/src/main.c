@@ -22,6 +22,10 @@ int main(int argc, const char **argv)
 
     /* Change stage to game */
     current_stage = malloc(sizeof (struct stage_game));
+    if (!current_stage) {
+        fprintf(stderr, "Could not create game stage\n");
+        return EXIT_FAILURE;
+    }
     stage_game_init((struct stage_game *)current_stage);
     
     /* Main loop */
