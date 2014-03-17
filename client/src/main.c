@@ -34,29 +34,27 @@ int main(int argc, const char **argv)
         fprintf(stderr, "Could not allocate game stage\n");
         return EXIT_FAILURE;
     }
+    stage_game_load(renderer);
     stage_game_init((struct stage_game *)current_stage);
     
     /* Main loop */
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-
     SDL_Event event;
     while (1) {
-        int ok = SDL_WaitEvent(&event);
-        if (!ok) {
+        if (!SDL_WaitEvent(&event)) {
             fprintf(stderr, "Could not wait for event: %s\n", SDL_GetError());
+            return EXIT_FAILURE;
         }
 
         stage_handle_event(current_stage, &event);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
         SDL_RenderClear(renderer);
         stage_update(current_stage);
-        stage_render(current_stage);
+        stage_render(current_stage, renderer);
         SDL_RenderPresent(renderer);
     }
 
-    SDL_Delay(3000);
-
     /* Cleanup */
-cleanup:
+    stage_game_unload();
     free(current_stage);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

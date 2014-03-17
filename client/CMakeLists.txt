@@ -3,6 +3,7 @@ PROJECT(client)
 
 INCLUDE_DIRECTORIES(
     ../lib/SDL/include
+    ../lib/SDL_image
     ../common/include
     include
 )
@@ -18,4 +19,5 @@ TARGET_LINK_LIBRARIES(
     client
     common
     SDL2-static
+    SDL2_image
 )
