@@ -13,7 +13,7 @@ void stage_game_handle_event(const struct stage_game *this, SDL_Event *event)
 {
     switch (event->type) {
         case SDL_KEYDOWN:
-            if (event->key.keysym.sym == SDLK_ESCAPE) exit(EXIT_SUCCESS); /* TODO: should be a menu ingame or something */
+            if (event->key.keysym.sym == SDLK_ESCAPE) exit(EXIT_SUCCESS);
     }
 }
 
@@ -26,7 +26,7 @@ void stage_game_render(const struct stage_game *this, SDL_Renderer *renderer)
 {
     /* TODO: impl */
     SDL_Rect rect_src  = {.w = 16, .h = 16, .x = 0, .y = 0};
-    SDL_Rect rect_dest = {.w = 16, .h = 16, .x = 100, .y = 100};
+    SDL_Rect rect_dest = {.w = 16, .h = 16, .x = 0, .y = 0};
     SDL_RenderCopy(renderer, g_texture, &rect_src, &rect_dest);
 }
 
@@ -42,7 +42,7 @@ void stage_game_init(struct stage_game *this)
 
 void stage_game_load(SDL_Renderer *renderer)
 {
-    SDL_Surface *tileset = IMG_Load("assets/tileset.png");
+    SDL_Surface *tileset = IMG_Load("tileset.png");
     if (!tileset) {
         fprintf(stderr, "Unable to load tileset: %s\n", IMG_GetError());
         exit(EXIT_FAILURE);

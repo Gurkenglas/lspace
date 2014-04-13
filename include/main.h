@@ -7,6 +7,6 @@
 #include "stage_game.h"
 #include "SDL.h"
 
-int main(int argc, const char **argv);
+int main(int argc, char **argv);
 
 #endif /* MAIN_H */

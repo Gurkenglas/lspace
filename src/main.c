@@ -1,27 +1,29 @@
 #include "main.h"
 
-int main(int argc, const char **argv)
+int main(int argc, char **argv)
 {
     struct stage *current_stage;
 
     /* Load libraries */
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_EVENTS);
     
     /* Optain library versions */
+    /*
     SDL_version compiled;
     SDL_version linked;
     SDL_VERSION(&compiled);
     SDL_GetVersion(&linked);
     printf("SDL version compiled: %d.%d.%d\n", compiled.major, compiled.minor, compiled.patch);
     printf("SDL version linked: %d.%d.%d\n", linked.major, linked.minor, linked.patch);
+    */
 
     /* Create window and renderer */
     SDL_Window      *window;
     SDL_Renderer    *renderer;
     SDL_DisplayMode  mode;
 
+    SDL_CreateWindowAndRenderer(0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP, &window, &renderer);
     SDL_GetCurrentDisplayMode(0, &mode);
-    SDL_CreateWindowAndRenderer(mode.w, mode.h, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL, &window, &renderer);
 
     if (!window) {
         fprintf(stderr, "Could not create window and renderer: %s\n", SDL_GetError());
