@@ -18,7 +18,7 @@ ADD_DEFINITIONS(
 
 ADD_EXECUTABLE(
     lspace
-    #src/test.c
+    src/common.c
     src/main.c
     src/stage.c
     src/stage_game.c

@@ -39,7 +39,9 @@ int main(int argc, char **argv)
     stage_game_load(renderer);
     stage_game_init((struct stage_game *)current_stage);
 
-    push_render_event(0, NULL);
+    /* Get the window size and provide it to the stage. Sometimes the rendering pass needs it */
+    //SDL_GetWindowSize(window, &current_stage->window_width, &current_stage->window_height);
+    //push_render_event();
     
     /* Main loop */
     SDL_Event event;
@@ -50,15 +52,24 @@ int main(int argc, char **argv)
         }
 
         switch (event.type) {
+            case SDL_WINDOWEVENT:
+                //SDL_WINDOWEVENT_FOCUS_GAINED:
+                SDL_GetWindowSize(window, &current_stage->window_width, &current_stage->window_height);
+                push_render_event();
+                break;
             case SDL_USEREVENT:
                 if (event.user.code == EVENTCODE_RENDER) {
+                    /*
+                     * Allow queuing more render events, even before we're done.
+                     * This take care of every corner cases that might arise from this technique.
+                     */
+                    g_render_event_queued = false;
+
                     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
                     SDL_RenderClear(renderer);
                     stage_update(current_stage);
                     stage_render(current_stage, renderer);
                     SDL_RenderPresent(renderer);
-                    
-                    SDL_AddTimer(10, push_render_event, NULL);
                 }
                 break;
             default:
@@ -76,21 +87,4 @@ int main(int argc, char **argv)
 
     /* Termination */
     return EXIT_SUCCESS;
-}
-
-Uint32 push_render_event(Uint32 interval, void *param)
-{
-    SDL_Event event;
-    SDL_UserEvent userevent;
-
-    userevent.type = SDL_USEREVENT;
-    userevent.code = EVENTCODE_RENDER;
-    userevent.data1 = NULL;
-    userevent.data2 = NULL;
-
-    event.type = SDL_USEREVENT;
-    event.user = userevent;
-
-    SDL_PushEvent(&event);
-    return 0;
 }

@@ -2,7 +2,11 @@
 #define STAGE_GAME_H
 
 #include <stdio.h>
+#include "common.h"
+#include "camera.h"
+#include "chunk.h"
 #include "stage.h"
+#include "tile.h"
 #include "SDL.h"
 #include "SDL_image.h"
 

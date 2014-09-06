@@ -1,14 +1,13 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "eventcode.h"
-#include "stage.h"
-#include "stage_game.h"
 #include "SDL.h"
 
+#include "common.h"
+#include "stage.h"
+#include "stage_game.h"
+
 int main(int argc, char **argv);
-Uint32 push_render_event(Uint32 interval, void *param);
+void push_render_event(void);
 
 #endif /* MAIN_H */

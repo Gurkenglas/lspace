@@ -13,6 +13,8 @@ struct stage_vtable {
 
 struct stage {
     struct stage_vtable *vtable;
+    int window_width;
+    int window_height;
 };
 
 void stage_handle_event(const struct stage *this, SDL_Event *event);
