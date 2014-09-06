@@ -38,6 +38,8 @@ int main(int argc, char **argv)
     }
     stage_game_load(renderer);
     stage_game_init((struct stage_game *)current_stage);
+
+    push_render_event(0, NULL);
     
     /* Main loop */
     SDL_Event event;
@@ -47,12 +49,22 @@ int main(int argc, char **argv)
             return EXIT_FAILURE;
         }
 
-        stage_handle_event(current_stage, &event);
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-        SDL_RenderClear(renderer);
-        stage_update(current_stage);
-        stage_render(current_stage, renderer);
-        SDL_RenderPresent(renderer);
+        switch (event.type) {
+            case SDL_USEREVENT:
+                if (event.user.code == EVENTCODE_RENDER) {
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+                    SDL_RenderClear(renderer);
+                    stage_update(current_stage);
+                    stage_render(current_stage, renderer);
+                    SDL_RenderPresent(renderer);
+                    
+                    SDL_AddTimer(10, push_render_event, NULL);
+                }
+                break;
+            default:
+                stage_handle_event(current_stage, &event);
+                break;
+        }
     }
 
     /* Cleanup */
@@ -64,4 +76,21 @@ int main(int argc, char **argv)
 
     /* Termination */
     return EXIT_SUCCESS;
+}
+
+Uint32 push_render_event(Uint32 interval, void *param)
+{
+    SDL_Event event;
+    SDL_UserEvent userevent;
+
+    userevent.type = SDL_USEREVENT;
+    userevent.code = EVENTCODE_RENDER;
+    userevent.data1 = NULL;
+    userevent.data2 = NULL;
+
+    event.type = SDL_USEREVENT;
+    event.user = userevent;
+
+    SDL_PushEvent(&event);
+    return 0;
 }
