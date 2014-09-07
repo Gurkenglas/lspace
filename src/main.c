@@ -30,7 +30,6 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    /* Change stage to game */
     current_stage = malloc(sizeof (struct stage_game));
     if (!current_stage) {
         fprintf(stderr, "Could not allocate game stage\n");

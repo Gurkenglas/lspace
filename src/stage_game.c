@@ -4,8 +4,6 @@ SDL_Texture *g_texture;
 struct camera g_camera;
     
 /* to clean */
-#define CHUNK_SIZE 10
-#define TILE_SIZE 32
 
 struct stage_vtable g_stage_game_vtable = {
     .handle_event    = (void (*)(const struct stage *this, SDL_Event *event)) stage_game_handle_event,
