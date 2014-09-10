@@ -5,12 +5,13 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "SDL.h"
+/* Error handling */
+#define FATAL(reason) \
+    fprintf(stderr, "[!] Fatal error in file %s at line %d: %s\n", __FILE__, __LINE__, reason "\n"); \
+    exit(EXIT_FAILURE);
 
-#include "eventcode.h"
-
-bool g_render_event_queued;
-
-void push_render_event(void);
+/* Beautiful sugar */
+#define COUNT(x) (sizeof (x)/sizeof (x)[0])
+#define UNUSED(x) ((void)(x))
 
 #endif /* COMMON_H */

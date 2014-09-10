@@ -1,9 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "SDL.h"
-
 #include "common.h"
+#include "engine.h"
 #include "stage.h"
 #include "stage_game.h"
 

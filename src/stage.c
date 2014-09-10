@@ -1,5 +1,15 @@
 #include "stage.h"
 
+void stage_load(struct stage *this)
+{
+    this->vtable->load(this);
+}
+
+void stage_unload(struct stage *this)
+{
+    this->vtable->unload(this);
+}
+
 void stage_handle_event(const struct stage *this, SDL_Event *event)
 {
     this->vtable->handle_event(this, event);

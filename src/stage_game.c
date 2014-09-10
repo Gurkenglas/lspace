@@ -6,6 +6,8 @@ struct camera g_camera;
 /* to clean */
 
 struct stage_vtable g_stage_game_vtable = {
+    .load            = (void (*)(struct stage *this)) stage_game_load, 
+    .unload          = (void (*)(struct stage *this)) stage_game_unload, 
     .handle_event    = (void (*)(const struct stage *this, SDL_Event *event)) stage_game_handle_event,
     .handle_network  = (void (*)(const struct stage *this)) stage_game_handle_network,
     .render          = (void (*)(const struct stage *this, SDL_Renderer *renderer)) stage_game_render,
@@ -48,7 +50,7 @@ void stage_game_handle_event(const struct stage_game *this, SDL_Event *event)
                     g_camera.world_chunk_x++;
                 }
             }
-            push_render_event();
+            engine_reschedule();
             break;
     }
 }
@@ -62,8 +64,8 @@ void stage_game_render(const struct stage_game *this, SDL_Renderer *renderer)
 {
     /* TODO: impl */
     /* +1 for screen dimension rounding errors, another +1 for when reaching chunk limits (moving around) */
-    unsigned int camera_chunk_width = this->stage.window_width / (CHUNK_SIZE * TILE_SIZE) + 2;
-    unsigned int camera_chunk_height = this->stage.window_height / (CHUNK_SIZE * TILE_SIZE) + 2;
+    unsigned int camera_chunk_width = g_display.w / (CHUNK_SIZE * TILE_SIZE) + 2;
+    unsigned int camera_chunk_height = g_display.h / (CHUNK_SIZE * TILE_SIZE) + 2;
 
     /* Rendering each chunk visible by the camera */
     for (unsigned int chunk_x = 0; chunk_x < camera_chunk_width; chunk_x++) {
@@ -103,24 +105,10 @@ void stage_game_init(struct stage_game *this)
     this->stage.vtable = &g_stage_game_vtable;
 }
 
-void stage_game_load(SDL_Renderer *renderer)
+void stage_game_load(struct stage_game *this)
 {
-    SDL_Surface *tileset = IMG_Load("tileset.png");
-    if (!tileset) {
-        fprintf(stderr, "Unable to load tileset: %s\n", IMG_GetError());
-        exit(EXIT_FAILURE);
-    }
-
-    g_texture = SDL_CreateTextureFromSurface(renderer, tileset);
-    if (!tileset) {
-        fprintf(stderr, "Unable to create texture from tileset: %s\n", SDL_GetError());
-        exit(EXIT_FAILURE);
-    }
-    
-    SDL_FreeSurface(tileset);
 }
 
-void stage_game_unload(void)
+void stage_game_unload(struct stage_game *this)
 {
-    //SDL_FreeTexture(g_texture);
 }

@@ -14,11 +14,13 @@ ADD_SUBDIRECTORY(lib/SDL_image)
 ADD_DEFINITIONS(
     -std=c99
     -pedantic
+    -Wall
+    -Werror
 )
 
 ADD_EXECUTABLE(
     lspace
-    src/common.c
+    src/engine.c
     src/main.c
     src/stage.c
     src/stage_game.c
