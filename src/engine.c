@@ -1,5 +1,6 @@
 #include "engine.h"
 
+bool             g_scheduled;
 SDL_Window      *g_window;
 SDL_Renderer    *g_renderer;
 SDL_Texture     *g_texture;

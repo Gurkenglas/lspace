@@ -13,7 +13,6 @@ void engine_reschedule(void);
 void engine_stage(struct stage *stage);
 void engine_unload(void);
 
-bool            g_scheduled;
 SDL_DisplayMode g_display;
 
 #endif /* ENGINE_H */
