@@ -20,6 +20,7 @@ ADD_DEFINITIONS(
 
 ADD_EXECUTABLE(
     lspace
+    src/camera.c
     src/engine.c
     src/main.c
     src/stage.c

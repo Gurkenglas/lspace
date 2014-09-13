@@ -14,5 +14,10 @@ void engine_stage(struct stage *stage);
 void engine_unload(void);
 
 SDL_DisplayMode g_display;
+bool g_scheduled;
+SDL_Window *g_window;
+SDL_Renderer *g_renderer;
+SDL_Texture *g_texture;
+struct stage *g_current_stage;
 
 #endif /* ENGINE_H */

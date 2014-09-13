@@ -20,9 +20,9 @@ void stage_handle_network(const struct stage *this)
     this->vtable->handle_network(this);
 }
 
-void stage_render(const struct stage *this, SDL_Renderer *renderer)
+void stage_render(const struct stage *this)
 {
-    this->vtable->render(this, renderer);
+    this->vtable->render(this);
 }
 void stage_update(const struct stage *this)
 {

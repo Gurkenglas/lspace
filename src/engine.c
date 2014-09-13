@@ -1,11 +1,5 @@
 #include "engine.h"
 
-bool             g_scheduled;
-SDL_Window      *g_window;
-SDL_Renderer    *g_renderer;
-SDL_Texture     *g_texture;
-struct stage    *g_current_stage;
-
 void engine_load(void)
 { 
     /* Load libraries */
@@ -77,7 +71,7 @@ void engine_run(void)
                 SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
                 SDL_RenderClear(g_renderer);
                 stage_update(g_current_stage);
-                stage_render(g_current_stage, g_renderer);
+                stage_render(g_current_stage);
                 SDL_RenderPresent(g_renderer);
                 break;
             default:

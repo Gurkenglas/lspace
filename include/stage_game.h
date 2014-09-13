@@ -16,7 +16,7 @@ void stage_game_handle_event(const struct stage_game *this, SDL_Event *event);
 void stage_game_handle_network(const struct stage_game *this);
 void stage_game_init(struct stage_game *this);
 void stage_game_load(struct stage_game *this);
-void stage_game_render(const struct stage_game *this, SDL_Renderer *renderer);
+void stage_game_render(const struct stage_game *this);
 void stage_game_unload(struct stage_game *this);
 void stage_game_update(const struct stage_game *this);
 
